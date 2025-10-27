@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Un Viaggio Scritto Nelle Stelle</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Great+Vibes&display=swap");
+
+      :root {
+        --star-bg: #000010;
+        --text-color: #f0f0f0;
+        --glow-color: #f8c0ff; /* Color de brillo principal (rosa claro) */
+        --nebula-color-1: #4a004a; /* Púrpura oscuro para la nebulosa */
+        --nebula-color-2: #8a2be2; /* Azul violeta */
+        --title-font: "Great Vibes", cursive;
+        --body-font: "Cormorant Garamond", serif;
+      }
+
+      body {
+        margin: 0;
+        font-family: var(--body-font);
+        color: var(--text-color);
+        background-color: var(--star-bg);
+        overflow-x: hidden;
+      }
+
+      /* --- Contenedor Principal y Cielo Estrellado --- */
+      .sky-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      #stars,
+      #stars2,
+      #stars3 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-repeat: repeat;
+        background-position: 0 0;
+      }
+      #stars {
+        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        animation: move-stars 200s linear infinite;
+      }
+      #stars2 {
+        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        background-size: 800px 800px;
+        animation: move-stars 150s linear infinite;
+      }
+      #stars3 {
+        background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+        background-size: 600px 600px;
+        animation: move-stars 100s linear infinite;
+      }
+      @keyframes move-stars {
+        from {
+          transform: translateY(0px);
+        }
+        to {
+          transform: translateY(-2000px);
+        }
+      }
+
+      .content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        padding: 20px;
+      }
+      .content h1 {
+        font-family: var(--title-font);
+        font-size: clamp(3rem, 10vw, 6rem);
+        color: white;
+        text-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color);
+        margin: 0;
+      }
+      .scroll-down {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        opacity: 0;
+        animation: fadeInSimple 2s 1s forwards;
+      }
+      @keyframes fadeInSimple {
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* --- Secciones de la Historia con Animación de Escritura --- */
+      .story-section {
+        padding: 120px 40px;
+        max-width: 700px;
+        margin: 0 auto;
+        text-align: left;
+        opacity: 0;
+        transform: translateY(50px);
+        transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+      }
+      .story-section.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .story-section p {
+        font-size: 1.6rem;
+        line-height: 1.9;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        position: relative;
+      }
+
+      .char {
+        opacity: 0;
+        animation: type-in 0.05s forwards;
+      }
+      @keyframes type-in {
+        to {
+          opacity: 1;
+        }
+      }
+
+      .story-section.visible p:not(.writing-done)::after {
+        content: "|";
+        position: absolute;
+        right: -10px;
+        color: var(--glow-color);
+        animation: blink 1s infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* --- La Estrella Interactiva --- */
+      #interactive-star-container {
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 50px;
+      }
+      #interactive-star {
+        width: 50px;
+        height: 50px;
+        background: radial-gradient(
+          ellipse at center,
+          #ffffff 0%,
+          #ffffff 25%,
+          rgba(255, 215, 0, 0) 70%
+        );
+        border-radius: 50%;
+        box-shadow: 0 0 20px 10px #fff, 0 0 40px 20px var(--glow-color),
+          0 0 70px 30px #e60073;
+        animation: pulse 2s infinite;
+        transition: transform 0.5s;
+      }
+      #interactive-star-container:hover #interactive-star {
+        transform: scale(1.2);
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(0.95);
+          box-shadow: 0 0 20px 10px #fff, 0 0 40px 20px var(--glow-color),
+            0 0 70px 30px #e60073;
+        }
+        70% {
+          transform: scale(1.1);
+          box-shadow: 0 0 30px 15px #fff, 0 0 60px 30px var(--glow-color),
+            0 0 100px 45px #e60073;
+        }
+        100% {
+          transform: scale(0.95);
+          box-shadow: 0 0 20px 10px #fff, 0 0 40px 20px var(--glow-color),
+            0 0 70px 30px #e60073;
+        }
+      }
+
+      /* --- Animación Final con FONDO DE NEBULOSA --- */
+      #final-reveal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: var(--star-bg);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 2s ease-in;
+        overflow: hidden;
+      }
+      body.final-sequence #final-reveal {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      #final-reveal::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle at 20% 80%,
+            var(--nebula-color-1) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 80% 20%,
+            var(--nebula-color-2) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 50% 50%,
+            rgba(255, 255, 255, 0.1) 0%,
+            transparent 60%
+          );
+        animation: nebula-drift 30s linear infinite alternate;
+        opacity: 0;
+        transition: opacity 2s ease-in 1s;
+        z-index: -1;
+      }
+      body.final-sequence #final-reveal::before {
+        opacity: 0.7;
+      }
+      @keyframes nebula-drift {
+        0% {
+          transform: scale(1) translate(0%, 0%);
+          opacity: 0.7;
+        }
+        50% {
+          transform: scale(1.2) translate(-10%, -10%);
+          opacity: 0.8;
+        }
+        100% {
+          transform: scale(1) translate(0%, 0%);
+          opacity: 0.7;
+        }
+      }
+
+      body.final-sequence .content,
+      body.final-sequence .story-section {
+        opacity: 0 !important;
+        transition: opacity 0.5s;
+      }
+
+      #final-question {
+        font-family: var(--title-font);
+        font-size: clamp(3rem, 15vw, 8rem);
+        color: transparent;
+        text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color);
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      body.final-sequence #final-question {
+        animation: text-reveal-glow 3s 1s forwards;
+      }
+      @keyframes text-reveal-glow {
+        0% {
+          color: transparent;
+          opacity: 0;
+          transform: scale(0.5);
+          text-shadow: 0 0 5px var(--glow-color);
+        }
+        50% {
+          color: white;
+          opacity: 1;
+          transform: scale(1.1);
+          text-shadow: 0 0 20px var(--glow-color), 0 0 40px #e60073;
+        }
+        100% {
+          color: white;
+          opacity: 1;
+          transform: scale(1);
+          text-shadow: 0 0 15px var(--glow-color), 0 0 25px var(--glow-color);
+        }
+      }
+
+      .redirect-button {
+        padding: 15px 35px;
+        font-size: 1.2rem;
+        font-family: var(--body-font);
+        font-weight: 600;
+        color: #333;
+        background-color: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50px;
+        text-decoration: none;
+        cursor: pointer;
+        margin-top: 40px;
+        opacity: 0;
+        transform: translateY(20px);
+        /* La animación se activa aquí */
+      }
+
+      /* REGLA CORREGIDA Y CLAVE */
+      body.final-sequence .redirect-button {
+        animation: button-appear 2s 3s forwards;
+      }
+      @keyframes button-appear {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+
+    <div id="main-content">
+      <section class="sky-container">
+        <div class="content">
+          <h1>Un Viaggio Scritto Nelle Stelle</h1>
+          <div class="scroll-down">Scorri per continuare</div>
+        </div>
+      </section>
+
+      <section class="story-section">
+        <p
+          data-text="Amore mio, a volte penso all'universo prima di te. Era un cielo immenso, silenzioso e pieno di stelle solitarie. Io ero una di quelle, in viaggio attraverso il buio, senza sapere che la mia orbita stava per essere attratta da una forza irresistibile, una luce più brillante di qualsiasi altra: la tua."
+        ></p>
+      </section>
+
+      <section class="story-section">
+        <p
+          data-text="L'istante in cui le nostre vite si sono incrociate è stato come una supernova. Un'esplosione di colori, emozioni e risate che ha creato una galassia completamente nuova, la nostra. Insieme, abbiamo tracciato costellazioni di ricordi felici e navigato attraverso nebulose di sogni condivisi. Hai trasformato il mio universo."
+        ></p>
+      </section>
+
+      <section class="story-section">
+        <p
+          data-text="E ora, qui, il nostro viaggio ci ha condotto a questo preciso momento. Tutte le stelle del nostro passato ci hanno guidato. Ma c'è un'ultima stella che dobbiamo aggiungere, la più importante. Quella che legherà le nostre anime per sempre e darà inizio alla nostra eternità. È qui, pronta a brillare..."
+        ></p>
+        <div id="interactive-star-container" title="Tocca la stella">
+          <div id="interactive-star"></div>
+        </div>
+      </section>
+    </div>
+
+    <div id="final-reveal">
+      <h2 id="final-question">Mi vuoi sposare?</h2>
+      <a href="flower.html" class="redirect-button">La mia risposta è qui</a>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Lógica para la animación de máquina de escribir ---
+        function setupTypewriter(p) {
+          const text = p.getAttribute("data-text");
+          p.innerHTML = ""; // Limpiar
+
+          text.split("").forEach((char) => {
+            const span = document.createElement("span");
+            span.className = "char";
+            span.textContent = char;
+            p.appendChild(span);
+          });
+
+          const chars = p.querySelectorAll(".char");
+          chars.forEach((char, index) => {
+            char.style.animationDelay = `${index * 50}ms`; // Velocidad de escritura
+          });
+
+          // Ocultar el cursor cuando termine
+          const totalTime = chars.length * 50 + 1000;
+          setTimeout(() => {
+            p.classList.add("writing-done");
+          }, totalTime);
+        }
+
+        // --- IntersectionObserver para activar las animaciones al hacer scroll ---
+        const storySections = document.querySelectorAll(".story-section");
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (
+                entry.isIntersecting &&
+                !entry.target.classList.contains("visible")
+              ) {
+                entry.target.classList.add("visible");
+                const p = entry.target.querySelector("p");
+                if (p) {
+                  setupTypewriter(p);
+                }
+              }
+            });
+          },
+          { threshold: 0.6 }
+        );
+
+        storySections.forEach((section) => {
+          observer.observe(section);
+        });
+
+        // --- Lógica para la animación final ---
+        const star = document.getElementById("interactive-star-container");
+        star.addEventListener("click", () => {
+          document.body.classList.add("final-sequence");
+
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+
+          setTimeout(() => {
+            const mainContent = document.getElementById("main-content");
+            if (mainContent) {
+              mainContent.style.display = "none";
+            }
+          }, 1000);
+        });
+      });
+    </script>
+  </body>
+</html>
